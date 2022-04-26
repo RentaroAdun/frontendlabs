@@ -1,7 +1,7 @@
 <template>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark" role="navigation">
   <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display
+    <!-- Brand and toggle get grouped for better mobile display -->
     <router-link to="/" class="navbar-brand mr-auto">StoreSharp</router-link>
     <div class="collapse navbar-collapse" id="navbarTop" :class="{show: isNavOpen}">
       <ul class="navbar-nav mr-auto">
@@ -26,7 +26,7 @@
       </ul>
     </div>
   </div>
-  /.container -->
+  <!-- /.container -->
 </nav>
 </template>
 
@@ -40,6 +40,18 @@ export default {
       isNavOpen: false
     }
   },
+  computed: {
+    ...mapGetters(['isLoggedIn', 'cartValue', 'currentUser', 'cartItemList']),
+    userEmail() {
+      return this.isLoggedIn ? this.currentUser.email : ''
+    }
+  },
+  methods: {
+    ...mapActions(['logout']),
+    toggleNavbar() {
+      this.isNavOpen = !this.isNavOpen
+    }
+  }
 }
 </script>
 
