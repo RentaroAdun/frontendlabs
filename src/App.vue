@@ -26,17 +26,27 @@
       </div>
     </footer>
 </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  import { mapActions } from 'vuex';
+  import Header from './components/Header.vue';
+  import MessageComponent from './components/common/MessageComponent.vue';
+  export default {
+    components: {
+      appHeader: Header,
+      MessageComponent
+    },
+    methods: {
+      ...mapActions(['getShoppingCart', 'listenToProductList'])
+    },
+    created() {
+      let uid = this.$store.getters.currentUser.uid;
+      this.listenToProductList();
+      this.getShoppingCart({uid, currentCart: this.$store.getters.cartItemList});
+    }
   }
-}
 </script>
 
 <style>
